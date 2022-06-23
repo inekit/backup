@@ -65,7 +65,7 @@ addressHandler.action('skip',ctx=>{
 addressHandler.on('text',async (ctx)=>{
     const address = ctx.message?.text
 
-    const addrReg = /^([0-9а-яА-ЯЁ\-ё]{2,40}\s?[0-9а-яА-ЯЁ\-ё]{0,40}\s?[0-9а-яА-ЯЁ\-ё]{0,40})\s?([0-9\/\.]{1,7})\s?([\wа-яА-ЯЁё0-9]{1,5})?$/g.exec(address)
+    const addrReg = /^([0-9а-яА-ЯЁ\-ё]{2,40}\s?[а-яА-ЯЁ\-ё]{0,40}\s?[а-яА-ЯЁ\-ё]{0,40})\s?([0-9\/\.]{1,7})\s?([\wа-яА-ЯЁё0-9]{1,5})?$/g.exec(address)
 
     console.log(addrReg)
     if (!addrReg) return ctx.replyWithTitle("WRONG_ADDR_FORMAT")
