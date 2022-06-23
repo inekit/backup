@@ -27,7 +27,7 @@ const cities = new Set()
 
 async function parseCities(){
     points?.["Лист1"].forEach(async p=>{
-        console.log(0)
+        console.log(0, p, p.city)
         
         await cities.add(p.city.trim())
     })
@@ -39,8 +39,12 @@ async function insertCities(){
        })
 }
 
+async function deleteCities(){
+    conn.query('delete from navigator.cities where 1=1')
+}
+
 async function deletePoints(){
-    await conn.query('delete from navigator.addresses where 1=1')
+    conn.query('delete from navigator.addresses where 1=1')
 }
 
 
@@ -55,12 +59,15 @@ async function parsePoints(){
 }
 
 async function parse(){
+
+    await deleteCities()
+
     await parseCities()
 
     await insertCities()
 
     await deletePoints()
-    
+
     await parsePoints()
 
 }
