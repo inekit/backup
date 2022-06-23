@@ -7,10 +7,10 @@ const tOrmCon = require("../db/data-source");
 const clientScene = new CustomWizardScene('clientScene')
 .enter(async ctx=>{
 
-    if (!(await checkSubscription(ctx))) {
+    /*if (!(await checkSubscription(ctx))) {
         await ctx.replyWithPhoto('AgACAgIAAxkBAAICXGKou9pIMB83HdvoqSl7q27T2pV_AALtvTEbmWVISTGw020E7Ay1AQADAgADcwADJAQ').catch(console.log)
         return ctx.replyWithKeyboard("GREETING", 'subscribe_keyboard')
-    }
+    }*/
 
     const connection = await tOrmCon
 
@@ -27,7 +27,7 @@ const clientScene = new CustomWizardScene('clientScene')
 
     if (!userObj) {
 
-        ctx.replyWithKeyboard("GREETING", {name: 'custom_bottom_keyboard', args: [menu]})
+        //ctx.replyWithKeyboard("GREETING", {name: 'custom_bottom_keyboard', args: [menu]})
         
         userObj = await connection.getRepository("User")
         .save({id: ctx.from.id})
