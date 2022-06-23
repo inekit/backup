@@ -65,7 +65,7 @@ async function parsePoints(){
     console.log(1)
     points?.["Лист1"].forEach(async point => {
         unresolved.add(await parseCity(point))
-        //console.log(unresolved)
+        console.log(unresolved)
 
     });
 }
