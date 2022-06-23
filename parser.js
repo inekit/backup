@@ -39,6 +39,11 @@ async function insertCities(){
        })
 }
 
+async function deletePoints(){
+    await conn.query('delete from navigator.addresses where 1=1')
+}
+
+
 async function parsePoints(){
     const unresolved = new Set()
     console.log(1)
@@ -54,6 +59,8 @@ async function parse(){
 
     await insertCities()
 
+    await deletePoints()
+    
     await parsePoints()
 
 }

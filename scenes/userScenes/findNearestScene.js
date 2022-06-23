@@ -94,6 +94,7 @@ coordinatesHandler.on('location', async ctx => {
 
 
     let {latitude, longitude} = ctx.message.location
+    await ctx.replyWithTitle('⚙️')
 
     const points = await getNearestPoints(longitude, latitude, ctx.wizard.state.input.city_id )
      .catch(e=>{
@@ -116,6 +117,8 @@ coordinatesHandler.on('text',async (ctx)=>{
     const addrReg = /^([а-яА-ЯЁё]{2,255})\s([0-9\/\.]{1,5})(\s([\wа-яА-ЯЁё0-9]{1,2}))?$/g.exec(address)
 
     if (!addrReg) return ctx.replyWithTitle("WRONG_ADDR_FORMAT")
+
+    await ctx.replyWithTitle('⚙️')
 
     geocoder.search( { street: addrReg?.[0], city: ctx.wizard.state.city, countrycodes:"ru", limit:5 } )
     .then(async (geoInfo) => {
