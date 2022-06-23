@@ -134,13 +134,17 @@ exports.cities_list_admin_keyboard = (ctx, cities) => {
     return keyboard
 }
 
-exports.points_list_admin_keyboard = (ctx, cities) => {
+exports.points_list_admin_keyboard = (ctx, points, page) => {
 
-    const keyboard = inlineKeyboard(cities.map(({ name, id }) => 
+    const keyboard = inlineKeyboard(points.slice((page-1)*50, page*50).map(({ name, id }) => 
      callbackButton(name, "point-"+id)), { columns: 2 })
 
      keyboard.reply_markup.inline_keyboard.push(
-        [callbackButton(ctx.getTitle('BUTTON_ADD_POINT'), 'add_point')],
+        [callbackButton(ctx.getTitle('BUTTON_ADD_POINT'), 'add_point')],)
+    if (points?.length > 50) keyboard.reply_markup.inline_keyboard.push(
+        [callbackButton(ctx.getTitle('BUTTON_PREVIOUS'), 'previous'),callbackButton(ctx.getTitle('BUTTON_NEXT'), 'next')])
+
+    keyboard.reply_markup.inline_keyboard.push(
         [callbackButton(ctx.getTitle('BUTTON_BACK'), 'back')],
     )
     return keyboard

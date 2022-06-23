@@ -22,8 +22,8 @@ scene.enter(async ctx => {
 
      if (!ctx.scene.state.points) ctx.scene.enter('clientScene')
 
-
-     const keyboard = {name: 'points_list_admin_keyboard', args: [ctx.scene.state.points]}
+     ctx.scene.state.page = 1;
+     const keyboard = {name: 'points_list_admin_keyboard', args: [ctx.scene.state.points, ctx.scene.state.page]}
  
      const title = ctx.scene.state.points.length ? ctx.getTitle("CHOOSE_POINT") : ctx.getTitle("NO_POINTS_YET")
  
@@ -32,6 +32,20 @@ scene.enter(async ctx => {
      if (edit) return ctx.editMenu(title, keyboard)
     ctx.replyWithKeyboard(title, keyboard)
 })
+
+scene.action('previous', async ctx => {
+    const keyboard = {name: 'points_list_admin_keyboard', args: [ctx.scene.state.points,--ctx.scene.state.page]}
+ 
+    const title = ctx.scene.state.points.length ? ctx.getTitle("CHOOSE_POINT") : ctx.getTitle("NO_POINTS_YET")
+
+    return ctx.editMenu(title, keyboard)})
+
+scene.action('next', async ctx => {
+    const keyboard = {name: 'points_list_admin_keyboard', args: [ctx.scene.state.points,++ctx.scene.state.page]}
+ 
+    const title = ctx.scene.state.points.length ? ctx.getTitle("CHOOSE_POINT") : ctx.getTitle("NO_POINTS_YET")
+
+    return ctx.editMenu(title, keyboard)})
 
 scene.action('add_point', async ctx => {
     ctx.scene.enter('pointAddingScene',{city: ctx.scene.state.city, cityId: ctx.scene.state.cityId});
