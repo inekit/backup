@@ -84,12 +84,14 @@ addressHandler.on('text',async (ctx)=>{
         if (!response || !response.length) throw new Error("CANT RECOGNIZE ADDRESS");
 
 
-        ctx.scene.state.input.latitude = response[0]?.lat;
-        ctx.scene.state.input.longitude = response[0]?.lon;
-
+        if (!locationCorrect) {
+            ctx.scene.state.input.latitude = response[0]?.lat;
+            ctx.scene.state.input.longitude = response[0]?.lon;
+        }
+        
         let input = ctx.scene.state.input;
 
-        await ctx.telegram.sendLocation(ctx.from.id, response[0]?.lat, response[0]?.lon)
+        await ctx.telegram.sendLocation(ctx.from.id, ctx.scene.state.input.latitude, ctx.scene.state.input.longitude)
         
         if (!ctx.scene.state.locationCorrect) {
             await ctx.replyWithKeyboard('POINT_ADDING_INFO','admin_back_keyboard',
