@@ -16,7 +16,13 @@ const sesParams = {
 };
 
 function createConnection() {
-  return mysql.createConnection(param);
+  let con = mysql.createConnection(param);
+
+  con.on("error", function (err) {
+    console.log("cannot connect session", err);
+  });
+
+  return con;
 }
 
 function sessionConnection() {
