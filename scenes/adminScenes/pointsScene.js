@@ -16,7 +16,7 @@ scene.enter(async ctx => {
     ctx.scene.state.points = 
      await connection.query(`select *
      from navigator.addresses p, navigator.admins b
-     where b.userId = ? and p.cityId = ?`,[ctx.from.id, ctx.scene.state.cityId])
+     where b.userId = ? and p.cityId = ? order by p.name`,[ctx.from.id, ctx.scene.state.cityId])
      .catch((e)=>{ console.log(e);ctx.replyWithTitle("DB_ERROR") })
 
 
