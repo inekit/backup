@@ -84,7 +84,7 @@ addressHandler.on('text',async (ctx)=>{
         if (!response || !response.length) throw new Error("CANT RECOGNIZE ADDRESS");
 
 
-        if (!locationCorrect) {
+        if (!ctx.scene.state.locationCorrect) {
             ctx.scene.state.input.latitude = response[0]?.lat;
             ctx.scene.state.input.longitude = response[0]?.lon;
         }
