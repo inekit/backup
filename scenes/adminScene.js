@@ -43,11 +43,12 @@ function formatDate(date) {
 
 adminScene.hears(titles.getValues('BUTTON_STATISTICS'),async ctx => {
     const connection =await tOrmCon
-    connection.query(`SELECT date, users_per_day, cart_per_day, users_per_week, cart_per_week from 
+    connection.query(`SELECT day.date, users_per_day, cart_per_day, users_per_week, cart_per_week from 
 	(SELECT date, users_per_day, cart_per_day FROM navigator.statistics
-	WHERE DATEDIFF(now(), date) < 7) day,
+	WHERE DATEDIFF(now(), date) < 7) day right join
     (SELECT sum(users_per_day) users_per_week, sum(cart_per_day) cart_per_week FROM navigator.statistics
-	WHERE DATEDIFF(now(), date) < 7 GROUP BY date) week`)
+	WHERE DATEDIFF(now(), date) < 7 GROUP BY DATEDIFF(now(), date) < 7) week
+on 1=1`)
     .then((res) => {
         if (!res || !res.length)  return ctx.replyWithTitle('THERE_IS_NO_STAT')
 
