@@ -36,9 +36,9 @@ const clientScene = new CustomWizardScene('clientScene')
             ctx.replyWithTitle("DB_ERROR")
         })
     }
-    
     if (userObj?.userId) menu.push(['ADMIN_SCENE_BUTTON'])
-    else if (userObj?.loginAgo!=="0") {
+    
+    if (userObj?.loginAgo!=="0") {
         await connection.query(
             "UPDATE navigator.users u SET lastUse = now() WHERE id = ?", 
             [ctx.from?.id])
