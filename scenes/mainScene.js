@@ -3,6 +3,7 @@ const { Telegraf, Composer, Scenes: { WizardScene } } = require('telegraf')
 const { CustomWizardScene, titles} = require('telegraf-steps-engine');
 const { confirmDialog } = require('telegraf-steps-engine/replyTemplates');
 const tOrmCon = require("../db/data-source");
+const stat = require("../Utils/statistics")
 
 const clientScene = new CustomWizardScene('clientScene')
 .enter(async ctx=>{
@@ -46,9 +47,10 @@ const clientScene = new CustomWizardScene('clientScene')
             console.log(e)
             ctx.replyWithTitle("DB_ERROR")
         })
-    }
 
-    
+        stat.increaseUse(ctx.from?.id).catch(e=>{ctx.replyWithTitle(e.message)})
+
+    }    
     
     ctx.replyWithKeyboard("HOME_MENU", {name: 'custom_bottom_keyboard', args: 
     [menu]})

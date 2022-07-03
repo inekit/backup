@@ -1,7 +1,6 @@
 const { Telegraf, Scenes: { Stage }, Composer} = require('telegraf')
 const { titles} = require('telegraf-steps-engine')
 const tOrmCon = require("./db/data-source");
-const stat = require("./Utils/statistics")
 
 
 const mainStage = new Stage([ 
@@ -22,8 +21,6 @@ const mainStage = new Stage([
 })*/
 
 mainStage.start(async ctx => {
-	stat.increaseUse(ctx.from?.id).catch(e=>{ctx.replyWithTitle(e.message)})
-
 
 	ctx.scene.enter('clientScene')
 })
